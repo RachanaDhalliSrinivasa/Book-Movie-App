@@ -49,5 +49,6 @@
 }
 
 .artists {
-    display: flex !important;
+    display: contents !important;
+    height: 150px !important;
 }
