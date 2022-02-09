@@ -1,0 +1,33 @@
+.released-movies-grid {
+    display: flex;
+}
+
+.released-movies-wrapper {
+    width: 76%;
+    margin: 16px;
+}
+
+.released-movies {
+    width: 100% !important;
+}
+
+.released-tile {
+    height: 350px;
+    width: 30%;
+    display: inline-block;
+    margin: 2px;
+}
+
+.formfield {
+    margin-top: 10px !important;
+    margin-bottom: 10px !important;
+}
+
+.released-tile:hover {
+    cursor: pointer;
+}
+
+.filter-box {
+    width: 24%;
+    margin: 16px;
+}

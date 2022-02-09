@@ -1,0 +1,14 @@
+.upcoming-movies-header {
+    background-color:  #ff9999;
+    text-align: center;
+    padding: 8px;
+    font-size: 1rem;
+} 
+
+.MuiFormControl-fullWidth-106 {
+    margin-bottom: 15px !important;
+}
+
+.MuiInputBase-input-148 {
+    padding: 15px 0 5px !important;
+}
