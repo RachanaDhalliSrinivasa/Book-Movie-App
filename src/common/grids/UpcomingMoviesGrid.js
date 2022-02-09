@@ -34,7 +34,7 @@ function UpcomingMoviesGrid(props) {
         <div className={classes.root}>
             <GridList className={classes.gridList} cols={2.5}>
                 {props.movies.map(tile => (
-                    <GridListTile className="upcoming-tile" key={tile.img}>
+                    <GridListTile className="upcoming-tile" key={tile.poster_url}>
                         <img src={tile.poster_url} alt={tile.title} />
                         <GridListTileBar title={tile.title} classes={{ root: classes.titleBar, title: classes.title, }} />
                     </GridListTile>

@@ -118,7 +118,6 @@ function ReleasedMoviesGrid(props) {
       let fMovies = [];
       let fMoviesID = [];
       if(form.movieName) {
-        console.log(props.movies)
           fMovies.push(props.movies.filter((movie) => movie.title.toLowerCase() === form.movieName.toLowerCase()));
       }
       if(applyGenres.length>0) {
@@ -168,7 +167,6 @@ function ReleasedMoviesGrid(props) {
               }
             })
         })
-        console.log(filteredM)
       if(fMovies.length>0) {
         setShowMovies(...filteredM);
       } else {
@@ -193,7 +191,6 @@ function ReleasedMoviesGrid(props) {
     };
 
     function navigateToDetailsPage(e) {
-      console.log(e.target)
       props.history.push(`/movie/${e.target.id}`);
     }
 
@@ -221,7 +218,7 @@ function ReleasedMoviesGrid(props) {
                     <TextField fullWidth id="standard-basic" label="Movie Name" name="movieName" onChange={handleFormChange} variant="standard" /> 
                     <FormControl fullWidth>
                         <InputLabel variant="standard" htmlFor="uncontrolled-native">Genres</InputLabel>
-                        <Select name="genres" labelId="demo-multiple-checkbox-label" id="demo-multiple-checkbox" multiple value={applyGenres} onChange={handleGenreChange} renderValue={(selected) => selected.join(', ')} MenuProps={MenuProps} >
+                        <Select name="genres" id="demo-multiple-checkbox" multiple value={applyGenres} onChange={handleGenreChange} renderValue={(selected) => selected.join(', ')} MenuProps={MenuProps} >
                             {genreArray.map((name) => (
                                 <MenuItem key={name} value={name}>
                                     <Checkbox checked={applyGenres.indexOf(name) > -1} />
@@ -232,7 +229,7 @@ function ReleasedMoviesGrid(props) {
                     </FormControl>
                     <FormControl fullWidth>
                         <InputLabel variant="standard" htmlFor="uncontrolled-native">Artists</InputLabel>
-                        <Select name="artists" labelId="demo-multiple-checkbox-label" id="demo-multiple-checkbox" multiple value={applyArtists} onChange={handleArtistChange} renderValue={(selected) => selected.join(', ')} MenuProps={MenuProps} >
+                        <Select name="artists" id="demo-multiple-checkbox" multiple value={applyArtists} onChange={handleArtistChange} renderValue={(selected) => selected.join(', ')} MenuProps={MenuProps} >
                             {artistArray.map((name) => (
                                 <MenuItem key={name} value={name}>
                                     <Checkbox checked={applyArtists.indexOf(name) > -1} />

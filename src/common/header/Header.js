@@ -54,8 +54,20 @@ export default function Header(props) {
     const [form, setForm] = useState('');
     const [log, setLog] = useState('LOGIN');
     const [display, setDisplay] = useState(false);
-    const [error, setError] = useState(false);
-    const [errMsg, setErrMsg] = useState('');
+    const [errorUname, setErrorUname] = useState(false);
+    const [errMsgUname, setErrMsgUname] = useState('');
+    const [errorPd, setErrorPd] = useState(false);
+    const [errMsgPd, setErrMsgPd] = useState('');
+    const [errorFname, setErrorFname] = useState(false);
+    const [errMsgFname, setErrMsgFname] = useState('');
+    const [errorLname, setErrorLname] = useState(false);
+    const [errMsgLname, setErrMsgLname] = useState('');
+    const [errorPWD, setErrorPWD] = useState(false);
+    const [errMsgPWD, setErrMsgPWD] = useState('');
+    const [errorEmail, setErrorEmail] = useState(false);
+    const [errMsgEmail, setErrMsgEmail] = useState('');
+    const [errorContact, setErrorContact] = useState(false);
+    const [errMsgContact, setErrMsgContact] = useState('');
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -80,9 +92,13 @@ export default function Header(props) {
     }
 
     function login() {
-        if((form.Username === '') || (form.Password === '')) {
-            setError(true);
-            setErrMsg('Required');
+        if((form.Username === '')) {
+            setErrorUname(true);
+            setErrMsgUname('Required');
+            setIsOpen(true);
+        } else if((form.Password === '')) {
+            setErrorPd(true);
+            setErrMsgPd('Required');
             setIsOpen(true);
         } else {
             if(log === 'LOGIN') {
@@ -100,44 +116,82 @@ export default function Header(props) {
                     response.json();
                     if(response.statusText === 'OK') {
                         setLog('LOGOUT');
+                        setErrorUname(false);
+                        setErrMsgUname('');
+                        setErrorPd(false);
+                        setErrMsgPd('');
                     }
                     })
+                    setIsOpen(false);
             }
             if(log === 'LOGOUT') {
                 setLog('LOGIN');
                 sessionStorage.setItem("access-token", '');
+                setIsOpen(false);
             }
-            setIsOpen(false);
         }
     }
 
     function signup() {
-        const accessTkn = window.btoa(`${form.Username}:${form.Password}`);
-        sessionStorage.setItem("access-token", accessTkn);
+        if((form.firstName === '')) {
+            setErrorFname(true);
+            setErrMsgFname('Required');
+            setIsOpen(true);
+        } else if((form.password === '')) {
+            setErrorPWD(true);
+            setErrMsgPWD('Required');
+            setIsOpen(true);
+        } else if((form.email === '')) {
+            setErrorEmail(true);
+            setErrMsgEmail('Required');
+            setIsOpen(true);
+        } else if((form.lastName === '')) {
+            setErrorLname(true);
+            setErrMsgLname('Required');
+            setIsOpen(true);
+        } else if((form.contactNo === '')) {
+            setErrorContact(true);
+            setErrMsgContact('Required');
+            setIsOpen(true);
+        } else {
 
-        const params = {
-            email_address: form.email,
-            first_name: form.firstName,
-            last_name: form.lastName,
-            mobile_number: form.contactNo,
-            password: form.password
+            const accessTkn = window.btoa(`${form.Username}:${form.Password}`);
+            sessionStorage.setItem("access-token", accessTkn);
+
+            const params = {
+                email_address: form.email,
+                first_name: form.firstName,
+                last_name: form.lastName,
+                mobile_number: form.contactNo,
+                password: form.password
+            }
+
+            fetch(props.baseUrl + "signup", {
+                body: JSON.stringify(params),
+                method: "POST",
+                headers: {
+                "Content-Type": "application/json",
+                "Cache-Control": "no-cache",
+                Authorization: "Basic " + accessTkn,
+                },
+            })
+            .then((response) => {
+                response.json()
+                if(response.status === 201) {
+                    setDisplay(true);
+                    setErrorFname(false);
+                    setErrMsgFname('');
+                    setErrorLname(false);
+                    setErrMsgLname('');
+                    setErrMsgPWD('');
+                    setErrorPWD(false);
+                    setErrorEmail(false);
+                    setErrorEmail('');
+                    setErrorContact(false);
+                    setErrMsgContact('');
+                }
+                });
         }
-
-        fetch(props.baseUrl + "signup", {
-            body: JSON.stringify(params),
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              "Cache-Control": "no-cache",
-              Authorization: "Basic " + accessTkn,
-            },
-          })
-          .then((response) => {
-              response.json()
-              if(response.status === 201) {
-                setDisplay(true);
-              }
-            });
     }
 
     function bookShow() {
@@ -164,18 +218,18 @@ export default function Header(props) {
                 </Tabs>
                 <TabPanel value={value} index={0}> 
                 <div className="form-container">
-                    <TextField className="form-field" required id="standard-basic" error={error} helperText={errMsg} onChange={handleFormChange} label="Username" name="Username" variant="standard" /> 
-                    <TextField className="form-field" type="password" required id="standard-basic" error={error} helperText={errMsg} onChange={handleFormChange} label="Password" name="Password" variant="standard" />
+                    <TextField className="form-field" required id="standard-basic" error={errorUname} helperText={errMsgUname} onChange={handleFormChange} label="Username" name="Username" variant="standard" /> 
+                    <TextField className="form-field" type="password" required id="standard-basic" error={errorPd} helperText={errMsgPd} onChange={handleFormChange} label="Password" name="Password" variant="standard" />
                     <Button className="form-btn" color="primary" variant="contained" onClick={login}>LOGIN</Button>
                 </div>
                 </TabPanel>
                 <TabPanel value={value} index={1}>
                     <div className="form-container">
-                        <TextField className="form-field" required id="standard-basic" label="First Name" name="firstName" error={error} helperText={errMsg} onChange={handleFormChange} variant="standard" /> 
-                        <TextField className="form-field" required id="standard-basic" label="Last Name" name="lastName" error={error} helperText={errMsg} onChange={handleFormChange} variant="standard" /> 
-                        <TextField className="form-field" required id="standard-basic" label="Email" name="email" error={error} helperText={errMsg} onChange={handleFormChange} variant="standard" /> 
-                        <TextField className="form-field" required id="standard-basic" label="Password" name="password" error={error} helperText={errMsg} onChange={handleFormChange} variant="standard" /> 
-                        <TextField className="form-field" required id="standard-basic" label="Contact No." name="contactNo" error={error} helperText={errMsg} onChange={handleFormChange} variant="standard" /> 
+                        <TextField className="form-field" required id="standard-basic" label="First Name" name="firstName" error={errorFname} helperText={errMsgFname} onChange={handleFormChange} variant="standard" /> 
+                        <TextField className="form-field" required id="standard-basic" label="Last Name" name="lastName" error={errorLname} helperText={errMsgLname} onChange={handleFormChange} variant="standard" /> 
+                        <TextField className="form-field" required id="standard-basic" label="Email" name="email" error={errorEmail} helperText={errMsgEmail} onChange={handleFormChange} variant="standard" /> 
+                        <TextField className="form-field" required id="standard-basic" label="Password" name="password" error={errorPWD} helperText={errMsgPWD} onChange={handleFormChange} variant="standard" /> 
+                        <TextField className="form-field" required id="standard-basic" label="Contact No." name="contactNo" error={errorContact} helperText={errMsgContact} onChange={handleFormChange} variant="standard" /> 
                         {display && <span className="register-success">Registration Successful. Please Login!</span>}
                         <Button className="form-btn" color="primary" variant="contained" onClick={signup}>REGISTER</Button>
                     </div>

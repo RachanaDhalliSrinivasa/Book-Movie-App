@@ -143,8 +143,8 @@ function Details(props) {
                     </Typography>
                     <Typography className="trailer">
                         <b>Trailer:</b>
-                        <YouTube className="yt" videoId={videoCode} opts={opts} onReady={onReady} />
                     </Typography>
+                    <YouTube className="yt" videoId={videoCode} opts={opts} onReady={onReady} />
                 </div>
                 <div className="movie-artists">
                     <Typography>
@@ -158,6 +158,7 @@ function Details(props) {
                     </Typography>
                     <Typography>
                         <b className="artist-title">Artists:</b>
+                    </Typography>
                         <div className="artists-grid {classes.root}">
                             <GridList cellHeight={250} className={classes.gridList}>
                                 <div className="artists">
@@ -169,9 +170,7 @@ function Details(props) {
                                     ))}
                                 </div>
                             </GridList>
-                            
                         </div>
-                    </Typography>
                 </div>
             </div>
         </div>
