@@ -1,0 +1,53 @@
+.back-btn {
+    margin-left: 24px;
+    margin-top: 8px;
+    height: 24px;
+}
+
+.back-btn:hover {
+    cursor: pointer;
+}
+
+.details-wrapper {
+    display: flex;
+}
+
+.movie-potser {
+    width: 20%;
+    margin-left: 24px;
+}
+
+.movie-info {
+    width: 60%;
+}
+
+.movie-artists {
+    width: 20%;
+}
+
+.plot {
+    margin-top: 16px !important; 
+}
+
+.trailer {
+    margin-top: 16px !important;
+}
+
+.image {
+    width: 85%;
+}
+
+.artist-title {
+    margin-top: 16px;
+    margin-bottom: 16px;
+}
+
+.artist-tile {
+    height: 150px !important;
+    width: 100px !important;
+    margin: 1px;
+}
+
+.artists {
+    display: flex !important;
+}
